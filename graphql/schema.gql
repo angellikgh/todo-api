@@ -4,39 +4,43 @@
 
 directive @upper on FIELD_DEFINITION
 
-type Todo {
-  """Example field (placeholder)"""
-  exampleField: Int!
-}
-
 type User {
   email: String!
   name: String!
   password: String!
 }
 
+type Todo {
+  title: String!
+  content: String!
+  creatorId: Int
+  creator: User
+}
+
 type Query {
   listTodo: [Todo!]!
-  todo(id: Int!): Todo!
-  user(id: Int!): User!
+  getTodo(id: Int!): Todo!
+  getUser(id: Int!): User!
 }
 
 type Mutation {
-  createTodo(createTodoInput: CreateTodoInput!): Todo!
-  updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
+  createTodo(data: CreateTodoInput!): Todo!
+  updateTodo(data: UpdateTodoInput!): Todo!
   removeTodo(id: Int!): Todo!
   createUser(createUserInput: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 input CreateTodoInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  title: String!
+  content: String!
+  creatorId: Float
 }
 
 input UpdateTodoInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  title: String
+  content: String
+  creatorId: Float
   id: Int!
 }
 
