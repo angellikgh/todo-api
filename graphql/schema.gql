@@ -9,15 +9,24 @@ type Todo {
   exampleField: Int!
 }
 
+type User {
+  email: String!
+  name: String!
+  password: String!
+}
+
 type Query {
-  findAll: [Todo!]!
+  listTodo: [Todo!]!
   todo(id: Int!): Todo!
+  user(id: Int!): User!
 }
 
 type Mutation {
   createTodo(createTodoInput: CreateTodoInput!): Todo!
   updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
   removeTodo(id: Int!): Todo!
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
 }
 
 input CreateTodoInput {
@@ -28,5 +37,18 @@ input CreateTodoInput {
 input UpdateTodoInput {
   """Example field (placeholder)"""
   exampleField: Int
+  id: Int!
+}
+
+input CreateUserInput {
+  email: String!
+  name: String!
+  password: String
+}
+
+input UpdateUserInput {
+  email: String
+  name: String
+  password: String
   id: Int!
 }
