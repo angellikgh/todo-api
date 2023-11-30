@@ -27,8 +27,8 @@ type Mutation {
   createTodo(data: CreateTodoInput!): Todo!
   updateTodo(data: UpdateTodoInput!): Todo!
   removeTodo(id: Int!): Todo!
-  createUser(createUserInput: CreateUserInput!): User!
-  updateUser(updateUserInput: UpdateUserInput!): User!
+  createUser(data: CreateUserInput!): User!
+  updateUser(data: UpdateUserInput!): User!
 }
 
 input CreateTodoInput {

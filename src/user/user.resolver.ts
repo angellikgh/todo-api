@@ -8,17 +8,17 @@ import { UpdateUserInput } from './dto/update-user.input';
 export class UserResolver {
   constructor(private readonly userService: UserService) {}
 
-  @Query(() => User, { name: 'user' })
-  async getUser(@Args('id', { type: () => Int }) id: number) {
-    return this.userService.findOne(id);
+  @Query(() => User, { name: 'getUser' })
+  async getUser(@Args('id', { type: () => Int }) userId: number) {
+    return this.userService.findOne(userId);
   }
   @Mutation(() => User)
-  async createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return await this.userService.create(createUserInput);
+  async createUser(@Args('data') userData: CreateUserInput) {
+    return await this.userService.create(userData);
   }
 
   @Mutation(() => User)
-  async updateUser(@Args('updateUserInput') userData: UpdateUserInput) {
+  async updateUser(@Args('data') userData: UpdateUserInput) {
     return await this.userService.update(userData.id, userData);
   }
 }
