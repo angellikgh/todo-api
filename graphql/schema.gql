@@ -1,0 +1,32 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @upper on FIELD_DEFINITION
+
+type Todo {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Query {
+  findAll: [Todo!]!
+  todo(id: Int!): Todo!
+}
+
+type Mutation {
+  createTodo(createTodoInput: CreateTodoInput!): Todo!
+  updateTodo(updateTodoInput: UpdateTodoInput!): Todo!
+  removeTodo(id: Int!): Todo!
+}
+
+input CreateTodoInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateTodoInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
