@@ -1,8 +1,12 @@
-import { ObjectType, Field, HideField } from '@nestjs/graphql';
-import { IsEmail, IsString, IsStrongPassword } from 'class-validator';
+import { ObjectType, Field, HideField, ID } from '@nestjs/graphql';
+import { IsEmail, IsNumber, IsString, IsStrongPassword } from 'class-validator';
 
 @ObjectType()
 export class User {
+  @Field(() => ID)
+  @IsNumber()
+  id: number;
+
   @Field()
   @IsEmail()
   email: string;

@@ -5,7 +5,6 @@ import { Public } from './decorators/public.decorator';
 import { SignInResponse } from './types/type';
 
 @Resolver()
-@Public()
 export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
@@ -22,6 +21,7 @@ export class AuthResolver {
   }
 
   @Mutation(() => User, { name: 'signUp' })
+  @Public()
   async signUp(
     @Args('email') email: string,
     @Args('name') name: string,

@@ -13,6 +13,14 @@ export class TodoService {
     });
   }
 
+  findOneById(id: number) {
+    return this.prisma.todo.findFirst({
+      where: {
+        id,
+      },
+    });
+  }
+
   findAll() {
     return this.prisma.todo.findMany();
   }

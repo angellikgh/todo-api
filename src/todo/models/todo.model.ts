@@ -1,5 +1,5 @@
 import { User } from '@/user/models/user.model';
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import {
   IsNotEmpty,
   IsNumber,
@@ -10,6 +10,9 @@ import {
 
 @ObjectType()
 export class Todo {
+  @Field(() => ID)
+  id: number;
+
   @Field(() => String)
   @IsString()
   title: string;

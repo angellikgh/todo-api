@@ -5,11 +5,13 @@
 directive @upper on FIELD_DEFINITION
 
 type User {
+  id: ID!
   email: String!
   name: String!
 }
 
 type SignInResponse {
+  id: ID!
   email: String!
   name: String!
   token: String!

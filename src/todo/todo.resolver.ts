@@ -1,8 +1,10 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { UseGuards } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Todo } from './models/todo.model';
 import { CreateTodoInput } from './dto/create-todo.input';
 import { UpdateTodoInput } from './dto/update-todo.input';
+import { CanUpdateOrDeleteGuard } from './guards/can-update-or-delete.guard';
 
 @Resolver(() => Todo)
 export class TodoResolver {
@@ -24,12 +26,14 @@ export class TodoResolver {
   }
 
   @Mutation(() => Todo)
-  updateTodo(@Args('data') todoData: UpdateTodoInput) {
+  @UseGuards(CanUpdateOrDeleteGuard)
+  async updateTodo(@Args('data') todoData: UpdateTodoInput) {
     return this.todoService.update(todoData.id, todoData);
   }
 
   @Mutation(() => Todo)
-  removeTodo(@Args('id', { type: () => Int }) id: number) {
+  @UseGuards(CanUpdateOrDeleteGuard)
+  async removeTodo(@Args('id', { type: () => Int }) id: number) {
     return this.todoService.remove(id);
   }
 }

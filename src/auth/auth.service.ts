@@ -38,12 +38,12 @@ export class AuthService {
     return this.userService.create(data);
   }
 
-  async validateUser(email: string): Promise<boolean> {
+  async validateUser(email: string): Promise<User | null> {
     const user: User | null = await this.prisma.user.findFirst({
       where: {
         email,
       },
     });
-    return !!user;
+    return user;
   }
 }
