@@ -1,11 +1,16 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '@/common/prisma.service';
 import { UserService } from '@/user/user.service';
 import { CreateUserInput } from '@/user/dto/create-user.input';
 import { User } from '@/user/models/user.model';
+import * as bcrypt from 'bcrypt';
 import { SignInInput } from './dto/signin.input';
-import { UserWithoutSensitiveInfo } from './types/type';
+import { UserWithoutSensitiveInfo, hashSalt } from './types/type';
 
 @Injectable()
 export class AuthService {
@@ -23,8 +28,13 @@ export class AuthService {
       },
     });
 
-    if (!user || user?.password !== password) {
-      throw new UnauthorizedException();
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    const isMatchPassword = await bcrypt.compare(password, user?.password);
+    if (!isMatchPassword) {
+      throw new BadRequestException();
     }
 
     const payload: UserWithoutSensitiveInfo = user;
@@ -34,8 +44,11 @@ export class AuthService {
     };
   }
 
-  signUp(data: CreateUserInput) {
-    return this.userService.create(data);
+  async signUp(data: CreateUserInput) {
+    return this.userService.create({
+      ...data,
+      password: await bcrypt.hash(data?.password || '', hashSalt),
+    });
   }
 
   async validateUser(email: string): Promise<User | null> {

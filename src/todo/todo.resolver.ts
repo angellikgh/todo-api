@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 import { TodoService } from './todo.service';
 import { Todo } from './models/todo.model';
@@ -11,7 +11,9 @@ export class TodoResolver {
   constructor(private readonly todoService: TodoService) {}
 
   @Mutation(() => Todo)
-  createTodo(@Args('data') todoData: CreateTodoInput) {
+  createTodo(@Args('data') todoData: CreateTodoInput, @Context() context: any) {
+    const userId = context.req.user.id;
+    todoData.creatorId = userId;
     return this.todoService.create(todoData);
   }
 
