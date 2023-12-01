@@ -3,8 +3,9 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { join } from 'path';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { TodoModule } from './todo/todo.module';
+import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { TodoModule } from './todo/todo.module';
 
 @Module({
   imports: [
@@ -21,8 +22,9 @@ import { UserModule } from './user/user.module';
       },
     }),
 
-    TodoModule,
+    AuthModule,
     UserModule,
+    TodoModule,
   ],
 })
 export class AppModule {}
